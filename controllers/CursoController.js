@@ -21,9 +21,9 @@ class CursoController{
     async create(req, res){
         var {nameCurso, AreaCurso} = req.body;
 
-        await Curso.new(nameCurso, AreaCurso)
+        var curso = await Curso.new(nameCurso, AreaCurso)
         res.statusCode = 200;
-        res.send("all ok")
+        res.json(curso)
     }
 
     

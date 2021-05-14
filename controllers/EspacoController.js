@@ -21,9 +21,38 @@ class EspacoController {
     async create(req, res){
         var {NomeEspaco, QuantidadeLugar, DescricaoEspaco} = req.body;
 
-        await Espaco.new(NomeEspaco, QuantidadeLugar, DescricaoEspaco)
+        var espaco = await Espaco.new(NomeEspaco, QuantidadeLugar, DescricaoEspaco)
         res.statusCode = 200;
-        res.send("Tudo ok")
+        res.send(espaco)
+    }
+
+    async edit(req, res){
+        var {idEspaco, NomeEspaco, QuantidadeLugar, DescricaoEspaco} = req.body;
+        var result = await Espaco.update(idEspaco, NomeEspaco, QuantidadeLugar, DescricaoEspaco)
+        if (result != undefined) {
+            if (result.status) {
+                res.statusCode = 200;
+                res.json(result)
+            } else {
+                res.statusCode = 406;
+                res.json(result)
+            }
+        } else {
+            res.statusCode = 406;
+            res.json({msg: "Erro no servidor"})
+        }
+    }
+
+    async remove(req, res){
+        var id = req.params.id;
+        var result = await Espaco.delete(id)
+        if (result.status) {
+            res.statusCode = 200
+            res.json(result)
+        } else {
+            res.statusCode = 306
+            res.json(res)
+        }
     }
     
 }

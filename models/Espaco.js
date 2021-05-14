@@ -44,7 +44,53 @@ class Espaco {
         }        
     }
 
+    async update(idEspaco, NomeEspaco, QuantidadeLugar, DescricaoEspaco){
+        var espaco = await this.findById(idEspaco)
 
+        if (espaco != undefined) {
+            var editLocal = {};
+            if (NomeEspaco != undefined) {
+                if (NomeEspaco != espaco.NomeEspaco) {
+                    var result = await this.findByName(NomeEspaco)
+                    if(result != null) {
+                        editLocal.NomeEspaco = NomeEspaco
+                    }
+                }
+            }
+            
+            if (QuantidadeLugar != undefined) {
+                editLocal.QuantidadeLugar = QuantidadeLugar
+            }
+
+            if (DescricaoEspaco != undefined) {
+                editLocal.DescricaoEspaco = DescricaoEspaco
+            }
+
+            try {
+                await knex.update(editLocal).where({idEspaco: idEspaco}).table("espaco")
+                return {status: true}
+            } catch (error) {
+                return {status:false, error: "O Local não existe"}
+            }
+        }else{
+            return {status:false, err: "The local not exists"}
+        }        
+    }
+
+    async delete(idEspaco){
+        var espaco = await this.findById({idEspaco: idEspaco})
+        if (espaco != [] || espaco != null ) {
+            try {
+                await knex.delete().where({idEspaco: idEspaco}).table("espaco")
+                return {status: true}
+            } catch (error) {
+                console.log(error)
+                return {status: false}
+            }
+        } else {
+            return {status: false, err: "The local not exists, so he don't can be deleted"}
+        }
+    }
 }
 
 module.exports = new Espaco()
