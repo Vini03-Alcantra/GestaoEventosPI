@@ -39,7 +39,7 @@ class EspacoController {
             }
         } else {
             res.statusCode = 406;
-            res.json({msg: "Erro no servidor"})
+            res.json({msg: "Serviço Indisponível"})
         }
     }
 
@@ -50,7 +50,7 @@ class EspacoController {
             res.statusCode = 200
             res.json(result)
         } else {
-            res.statusCode = 306
+            res.statusCode = 406
             res.json(res)
         }
     }

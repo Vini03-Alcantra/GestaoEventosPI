@@ -26,6 +26,35 @@ class CursoController{
         res.json(curso)
     }
 
+    async edit(req, res){
+        var {idCurso, nameCurso, AreaCurso} = req.body
+        var result = await Curso.update(idCurso, nameCurso, AreaCurso)
+        if (result != undefined) {
+            if (result.status) {
+                res.statusCode = 200;
+                res.json(result)
+            } else {
+                res.statusCode = 406
+                res.json(result)
+            }
+        } else {
+            res.statusCode = 406
+            res.json({msg: "Serviço Indisponível"})   
+        }
+    }
+
+    async remove(req, res){
+        var id = req.params.id
+        var result = await Curso.delete(id)
+        if (result.status) {
+            res.statusCode = 200;
+            res.json(result)
+        } else {
+            res.statusCode = 406
+            res.json(result)
+        }
+    }
+
     
 }
 

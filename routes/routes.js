@@ -11,5 +11,7 @@ router.delete("/espaco/:id", espaco.remove)
 router.post("/curso", curso.create)
 router.get("/curso", curso.index)
 router.get("/curso/:id", curso.findCurso)
+router.put("/curso/", curso.edit)
+router.delete("/curso/:id", curso.remove)
 
 module.exports = router
