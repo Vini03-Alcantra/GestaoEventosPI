@@ -3,7 +3,9 @@ var knex = require("../database/connection")
 class Espaco {
     async findAll(){
         try {
-            var result = knex.select(["idEspaco", "NomeEspaco", "QuantidadeLugar", "DescricaoLugar"]).table("espaco")
+            //var result = await knex.select(["idEspaco", "NomeEspaco", "QuantidadeLugar", "DescricaoEspaco"]).from("espaco")            
+            //var result = await knex.select('idEspaco', 'NomeEspaco', 'QuantidadeLugar', 'DescricaoEspaco').from("espaco")            
+            var result = await knex.select("*").from("espaco")
             return result
         } catch (error) {
             console.log(error)

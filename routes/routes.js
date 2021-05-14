@@ -4,6 +4,8 @@ const curso = require("../controllers/CursoController")
 
 
 router.post("/espaco", espaco.create)
+router.get("/espaco", espaco.index)
+router.get("/espaco/:id", espaco.findLocal)
 router.post("/curso", curso.create)
 router.get("/curso", curso.index)
 router.get("/curso/:id", curso.findCurso)

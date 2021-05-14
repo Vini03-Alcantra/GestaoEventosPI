@@ -2,18 +2,19 @@ var Espaco = require("../models/Espaco")
 
 class EspacoController {
     async index(req, res){
-        var espacos = Espaco.findAll()
+        var espacos = await Espaco.findAll()
         res.json(espacos)
     }
 
     async findLocal(req, res){
         var id = req.params.id;
         var espaco = await Espaco.findById(id)
-        if (espaco.length > 0) {
-            
-            return espaco[0]
+        if (espaco == null || espaco == undefined) {
+            res.statusCode = 404;
+            res.json({})
         } else {
-            return []
+            res.statusCode = 200
+            res.json(espaco)
         }
     }
 
