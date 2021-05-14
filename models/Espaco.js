@@ -45,4 +45,4 @@ class Espaco {
 
 }
 
-module.exports = Espaco
+module.exports = new Espaco()

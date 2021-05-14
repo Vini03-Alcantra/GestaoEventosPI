@@ -1,8 +1,7 @@
 var app = require("express")()
+var router = require("./routes/routes")
 
-app.get("/", (req, res) => {
-    res.send("Olá mundo")
-})
+app.use("/", router)
 
 app.listen(3000, () => {
     console.log("Servidor Rodando")

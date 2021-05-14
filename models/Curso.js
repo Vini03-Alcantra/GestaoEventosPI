@@ -48,4 +48,4 @@ class Curso {
     }
 } 
 
-module.exports = Curso
+module.exports = new Curso()
