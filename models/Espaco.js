@@ -84,7 +84,7 @@ class Espaco {
                 await knex.delete().where({idEspaco: idEspaco}).table("espaco")
                 return {status: true}
             } catch (error) {
-                console.log(error)
+                console.error(error)
                 return {status: false}
             }
         } else {
