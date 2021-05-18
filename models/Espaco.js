@@ -31,7 +31,7 @@ class Espaco {
                 return []
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
             return undefined
         }
     }
