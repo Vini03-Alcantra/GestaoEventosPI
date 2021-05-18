@@ -51,7 +51,7 @@ class EspacoController {
             res.json(result)
         } else {
             res.statusCode = 406
-            res.json(res)
+            res.json({})
         }
     }
     
