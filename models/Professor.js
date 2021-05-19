@@ -42,8 +42,10 @@ class Professor {
     async new(nameProfessor, MatriculaProfessor, CursoProfessor){
         try {
             await knex.insert({nameProfessor, MatriculaProfessor, CursoProfessor}).table("professor")
+            return {status: true}
         } catch (error) {
             console.error(error)
+            return {status: false}
         }
     }
 
