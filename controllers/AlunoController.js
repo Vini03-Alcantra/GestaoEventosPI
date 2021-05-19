@@ -20,10 +20,16 @@ class AlunoController {
 
     async create(req, res){
         var {NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password} = req.body;
-                    
-        var aluno = await Aluno.new(NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password)
-        res.statusCode = 200;
-        res.json(aluno)
+        var permissionMatricula = Aluno.findByMatricula(MatriculaAluno)             
+        if (permissionMatricula) {
+            var aluno = await Aluno.new(NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password)
+            res.statusCode = 200;
+            res.json(aluno)    
+        } else {
+            res.statusCode = 403
+            res.json({msg: "Matrícula já existente"})
+        }
+        
         
     }
 

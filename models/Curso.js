@@ -42,8 +42,10 @@ class Curso {
     async new(nameCurso, AreaCurso){
         try {
             await knex.insert({nameCurso, AreaCurso}).table("curso")
+            return {status: true}
         } catch (error) {
             console.log(error)
+            return {status: false}
         }
     }
 

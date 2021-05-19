@@ -5,7 +5,7 @@ class Aluno {
     
     async findAll(){
         try {
-            var result = await knex.select(["idAluno", "NomeAluno", "emailAluno", "MatriculaAluno", "CpfAluno", "password", "Curso"]).table("aluno");
+            var result = await knex.select(["idAluno", "NomeAluno", "emailAluno", "MatriculaAluno", "CpfAluno", "password", "Curso"]).from("aluno")
             return result;
         } catch (error) {
             console.log(err)
@@ -15,11 +15,11 @@ class Aluno {
     
     async findByMatricula(matricula){
         try {
-            var result = await knex.select(["idAluno", "NomeAluno", "emailAluno", "MatriculaAluno", "CpfAluno", "password", "Curso"]).where({MatriculaAluno: matricula})
+            var result = await knex.select(["idAluno", "NomeAluno", "emailAluno", "MatriculaAluno", "CpfAluno", "password", "Curso"]).where({MatriculaAluno: matricula}).table("aluno")
             if(result.length > 0){
-                return result[0]
+                return true
             }else{
-                return []
+                return false
             }
         } catch (error) {
             console.log(error)
@@ -27,8 +27,8 @@ class Aluno {
     }
 
     async findById(idAluno){
-        var result = knex.select("*").from("aluno").where({idAluno: idAluno})
         try {
+            var result = knex.select("*").where({idAluno: idAluno}).table("aluno")
             if(result.length > 0){
                 return result[0]
             }else{
@@ -44,9 +44,10 @@ class Aluno {
         try {
             var hash = await bcrypt.hash(password, 12)
             await knex.insert({NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password: hash}).table("aluno")
+            return {status: true}
         } catch (error) {
             console.log(error)
-            return undefined;
+            return {status: true}
         }
     }
 
@@ -90,7 +91,7 @@ class Aluno {
     }
 
     async validation(email, matricula, cpf){
-        var result = await knex.select("*").from("aluno").whereRaw(`emailAluno=${email} or MatriculaAluno=${matricula} or CpfAluno =${cpf}`)
+        var result = await knex.select("*").whereRaw(`emailAluno=${email} or MatriculaAluno=${matricula} or CpfAluno =${cpf}`).from("aluno")
         try {
             if (result.length > 0) {
                 return true

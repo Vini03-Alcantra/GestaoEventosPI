@@ -12,22 +12,27 @@ class Administrador{
     }
 
     async findByName(nomeAdministrador){
-        var result = knex.select("*").from("administrador").where({nomeAdministrador: nomeAdministrador})
-        if (result.length > 0) {
-            return true
-        }else{
-            return false
-        }        
+        try {            
+            var result = knex.select("*").where({nomeAdministrador: nomeAdministrador}).table("administrador")
+            if (result.length > 0) {
+                return true
+            }else{
+                return false
+            }        
+        } catch (error) {
+            console.error(error)
+            return undefined
+        }
     }
 
     async findById(IdAministrador){
-        var result = knex.select("*").from("administrador").where({IdAministrador: IdAministrador})
         try {
-               if (result.length > 0) {
-                   return result[0]
-               } else {
-                   return []
-               }
+            var result = knex.select("*").where({IdAministrador: IdAministrador}).table("administrador")
+            if (result.length > 0) {
+                return result[0]
+            } else {
+                return []
+            }
         } catch (error) {
             console.error(error)
             return undefined
@@ -37,8 +42,10 @@ class Administrador{
     async new(nomeAdministrador, MatriculaAdministrador){
         try {
             await knex.insert({nomeAdministrador, MatriculaAdministrador}).table("administrador")            
+            return {status: true}
         } catch (error) {
             console.error(error)
+            return {status: false}
         }
     }
 

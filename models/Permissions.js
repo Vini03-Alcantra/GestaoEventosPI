@@ -3,7 +3,7 @@ var knex = require("../database/connection")
 class Permissions{
     async findAll(){
         try {
-            var result = await knex.select("*").from("permissions");
+            var result = await knex.select("*").from("permissions")
             return result;
         }catch(err){
             console.error(err)
@@ -11,18 +11,23 @@ class Permissions{
         }
     }
 
-    async findByName(namePermission){
-        var result = knex.select("*").from("permissions").where({namePermission: namePermission})
-        if (result.length > 0) {
-            return true
-        } else {
-            return false
+    async findByName(namePermission){        
+        try {
+            var result = knex.select("*").where({namePermission: namePermission}).table("permissions")
+            if (result.length > 0) {
+                return true
+            } else {
+                return false
+            }            
+        } catch (error) {
+            console.error(error)
+            return undefined
         }
     }
 
     async findById(idPermissions){
-        var result = knex.select("*").from("permissions").where({idPermissions: idPermissions})
         try {
+            var result = knex.select("*").where({idPermissions: idPermissions}).table("permissions")
             if (result.length > 0) {
                 return result[0]
             } else {
@@ -35,11 +40,12 @@ class Permissions{
     }
 
     async new(namePermission, descriptionPermission, createdAt){
-        try {
-            var date = new Date.now()
-            await knex({namePermission, descriptionPermission, createdAt})            
+        try {            
+            await knex({namePermission, descriptionPermission, createdAt})       
+            return {status: true}
         } catch (error) {
-            console.error(error)
+            console.log(error)
+            return {status: false}
         }
     }
 
@@ -70,7 +76,7 @@ class Permissions{
     }
 
     async delete(idPermissions){
-        var permission = await this.find[({idPermissions: idPermissions})]
+        var permission = await this.findById({idPermissions: idPermissions})
         if (permission != [] || permission != null) {
             try {
                 await knex.delete().where({idPermissions: idPermissions}).table("permissions")

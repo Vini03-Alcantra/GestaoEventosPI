@@ -9,7 +9,7 @@ class RoleController{
     async findLocal(req, res){
         var id = req.params.id;
         var role = await Role.findById(id)
-        if (role != null || role != []) {
+        if (role != undefined || role != []) {
             res.statusCode = 200
             res.json(role)
         } else {

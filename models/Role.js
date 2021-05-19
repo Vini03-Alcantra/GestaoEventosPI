@@ -12,8 +12,8 @@ class Role {
     }
 
     async findByName(nameRole){
-        var result = knex.select("*").from("role").where({nameRole: nameRole})
         if (result.length > 0) {
+            var result = await knex.select("*").where({nameRole: nameRole}).table("role")
             return true
         } else {
             return false
@@ -21,8 +21,8 @@ class Role {
     }
 
     async findById(idRole){
-        var result = knex.select("*").from("role").where({idRole: idRole})
         try {
+            var result = await knex.select("*").where({idRole: idRole}).table("role")
             if (result.length > 0) {
                 return result[0]
             } else {
@@ -37,8 +37,10 @@ class Role {
     async new(nomeRole, descriptionRole, createdAt){
         try {
             await knex.insert({nomeRole, descriptionRole, createdAt}).table("role")
+            return {status: true}
         } catch (error) {
             console.error(error)
+            return {status: false}
         }
     }
 
@@ -50,7 +52,7 @@ class Role {
             if (nomeRole != undefined) {
                 if (nomeRole != role.nomeRole) {
                     var result = this.findByName(nomeRole)
-                    if (result.length > 0) {
+                    if (result != null) {
                         editRole.nomeRole = nomeRole
                     }
                 }

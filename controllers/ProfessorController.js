@@ -9,7 +9,7 @@ class ProfessorController{
     async findLocal(req, res){
         var id = req.params.id;
         var professor = await Professor.findById(id)
-        if (professor != null || professor != []) {
+        if (professor != undefined || professor != []) {
             res.statusCode = 200;
             res.json(professor)
         } else {

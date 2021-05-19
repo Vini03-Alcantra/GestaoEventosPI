@@ -12,8 +12,8 @@ class Professor {
     }
 
     async findByName(nameProfessor){
-        var result = knex.select("*").from("professor").where({nameProfessor: nameProfessor})
         try {
+            var result = knex.select("*").where({nameProfessor: nameProfessor}).table("professor")
             if (result.length > 0) {
                 return true
             } else {
@@ -26,8 +26,8 @@ class Professor {
     }
 
     async findById(idProfessor){
-        var result = knex.select("*").from("professor").where({idProfessor: idProfessor})
         try {
+            var result = knex.select("*").where({idProfessor: idProfessor}).table("professor")
             if (result.length > 0) {
                 return result[0]
             } else {

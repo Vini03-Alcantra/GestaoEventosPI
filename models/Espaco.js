@@ -2,9 +2,7 @@ var knex = require("../database/connection")
 
 class Espaco {
     async findAll(){
-        try {
-            //var result = await knex.select(["idEspaco", "NomeEspaco", "QuantidadeLugar", "DescricaoEspaco"]).from("espaco")            
-            //var result = await knex.select('idEspaco', 'NomeEspaco', 'QuantidadeLugar', 'DescricaoEspaco').from("espaco")            
+        try {            
             var result = await knex.select("*").from("espaco")
             return result
         } catch (error) {
@@ -14,17 +12,22 @@ class Espaco {
     }
 
     async findByName(NomeEspaco){
-        var result = knex.select("*").from("espaco").where({NomeEspaco: NomeEspaco})
-        if (result.length > 0) {
-            return true
-        } else {
-            return false
+        try {
+            var result = knex.select("*").where({NomeEspaco: NomeEspaco}).table("espaco")
+            if (result.length > 0) {
+                return true
+            } else {
+                return false
+            }
+        } catch (error) {
+            console(error)
+            return undefined
         }
     }
 
     async findById(id){
-        var result = knex.select("*").from("espaco").where({idEspaco: id})
         try {
+            var result = await knex.select("*").where({idEspaco: id}).table("espaco")
             if (result.length > 0) {
                 return result[0]
             } else {
@@ -39,8 +42,10 @@ class Espaco {
     async new(NomeEspaco, QuantidadeLugar, DescricaoEspaco){
         try {
             await knex.insert({NomeEspaco, QuantidadeLugar, DescricaoEspaco}).table("espaco")
+            return {status:true}
         } catch (error) {
             console.log(error)
+            return undefined
         }        
     }
 
@@ -49,7 +54,7 @@ class Espaco {
 
         if (espaco != undefined) {
             var editLocal = {};
-            if (NomeEspaco != undefined) {
+            if (NomeEspaco != undefined || NomeEspaco != []) {
                 if (NomeEspaco != espaco.NomeEspaco) {
                     var result = await this.findByName(NomeEspaco)
                     if(result != null) {
@@ -70,7 +75,7 @@ class Espaco {
                 await knex.update(editLocal).where({idEspaco: idEspaco}).table("espaco")
                 return {status: true}
             } catch (error) {
-                return {status:false, error: "O Local não existe"}
+                return {status:false, err: "O Local não existe"}
             }
         }else{
             return {status:false, err: "The local not exists"}
