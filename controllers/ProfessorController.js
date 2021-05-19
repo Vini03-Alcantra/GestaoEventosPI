@@ -14,18 +14,20 @@ class ProfessorController{
             res.json(professor)
         } else {
             res.statusCode = 404
-            res.json({})
+            res.json(professor)
         }
     }
 
     async create(req, res){
         var {nameProfessor, MatriculaProfessor, CursoProfessor} = req.body
+
         var professor = await Professor.new(nameProfessor, MatriculaProfessor, CursoProfessor)
         if (professor.status) {
             res.statusCode = 200
             res.json(professor)
         } else {
-            res.json({})
+            res.statusCode = 404
+            res.json(professor)
         }
     }
 

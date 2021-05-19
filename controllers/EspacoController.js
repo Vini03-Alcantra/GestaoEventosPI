@@ -22,8 +22,13 @@ class EspacoController {
         var {NomeEspaco, QuantidadeLugar, DescricaoEspaco} = req.body;
 
         var espaco = await Espaco.new(NomeEspaco, QuantidadeLugar, DescricaoEspaco)
-        res.statusCode = 200;
-        res.send(espaco)
+        if (espaco.status) {
+            res.statusCode = 200;
+            res.json(espaco)
+        } else {
+            res.statusCode = 404;
+            res.json(espaco)
+        }
     }
 
     async edit(req, res){
@@ -51,7 +56,7 @@ class EspacoController {
             res.json(result)
         } else {
             res.statusCode = 406
-            res.json({})
+            res.json(result)
         }
     }
     

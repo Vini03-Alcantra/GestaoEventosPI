@@ -9,7 +9,7 @@ class PermissionController{
     async findPermission(req, res){
         var id = req.params.id;
         var permission = await Permission.findById(id)
-        if (permission == null || permission == undefined) {
+        if (permission == [] || permission == undefined) {
             res.statusCode = 404;
             res.json({})
         } else {
@@ -21,6 +21,7 @@ class PermissionController{
     async create(req, res){
         var date = Date.now()
         var {namePermission, descriptionPermission} = req.body;
+        
         try {
             var permission = Permission.new(namePermission, descriptionPermission, date)
             if (permission != undefined) {

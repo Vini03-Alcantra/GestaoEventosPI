@@ -21,8 +21,13 @@ class RoleController{
     async create(req, res){
         var {nomeRole, descriptionRole} = req.body;
         var role = await Role.new(nomeRole, descriptionRole, Date.now())
-        res.statusCode = 200;
-        res.json(role)
+        if (role.status) {
+            res.statusCode = 200;
+            res.json(role)
+        } else {
+            res.statusCode = 404;
+            res.json(role)
+        }
     }
 
     async edit(req, res){

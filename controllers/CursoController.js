@@ -9,9 +9,9 @@ class CursoController{
     async findCurso(req, res){
         var id = req.params.id;
         var curso = await Curso.findById(id)
-        if (curso == null || curso == undefined) {
+        if (curso == [] || curso == undefined) {
             res.statusCode = 404;
-            res.json({})            
+            res.json(curso)            
         }else{
             res.statusCode = 200;
             res.json(curso)
@@ -22,8 +22,13 @@ class CursoController{
         var {nameCurso, AreaCurso} = req.body;
 
         var curso = await Curso.new(nameCurso, AreaCurso)
-        res.statusCode = 200;
-        res.json(curso)
+        if (curso.status) {
+            res.statusCode = 200;
+            res.json(curso)
+        } else {
+            res.statusCode = 404
+            res.json(curso)
+        }
     }
 
     async edit(req, res){
