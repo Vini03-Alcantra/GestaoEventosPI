@@ -19,9 +19,9 @@ class ProfessorController{
     }
 
     async create(req, res){
-        var {nameProfessor, MatriculaProfessor, CursoProfessor} = req.body
+        var {nameProfessor, MatriculaProfessor, password} = req.body
 
-        var professor = await Professor.new(nameProfessor, MatriculaProfessor, CursoProfessor)
+        var professor = await Professor.new(nameProfessor, MatriculaProfessor, password)
         if (professor.status) {
             res.statusCode = 200
             res.json(professor)

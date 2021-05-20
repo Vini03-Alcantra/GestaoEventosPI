@@ -18,12 +18,11 @@ class PermissionController{
         }
     }
 
-    async create(req, res){
-        var date = Date.now()
+    async create(req, res){        
         var {namePermission, descriptionPermission} = req.body;
         
         try {
-            var permission = Permission.new(namePermission, descriptionPermission, date)
+            var permission = Permission.new(namePermission, descriptionPermission)
             if (permission != undefined) {
                 res.statusCode = 200;
                 res.json({status: true, permission})

@@ -39,9 +39,9 @@ class Permissions{
         }
     }
 
-    async new(namePermission, descriptionPermission, createdAt){
+    async new(namePermission, descriptionPermission){
         try {            
-            await knex({namePermission, descriptionPermission, createdAt})       
+            await knex.insert({namePermission, descriptionPermission}).table("permissions")       
             return {status: true}
         } catch (error) {
             console.log(error)

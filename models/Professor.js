@@ -1,4 +1,5 @@
 var knex = require("../database/connection")
+var bcrypt = require("bcrypt")
 
 class Professor {
     async findAll(){
@@ -39,9 +40,10 @@ class Professor {
         }
     }
 
-    async new(nameProfessor, MatriculaProfessor, CursoProfessor){
+    async new(nameProfessor, MatriculaProfessor, password){
         try {
-            await knex.insert({nameProfessor, MatriculaProfessor, CursoProfessor}).table("professor")
+            var hash = await bcrypt.hash(password, 12)
+            await knex.insert({nameProfessor, MatriculaProfessor, password: hash}).table("professor")
             return {status: true}
         } catch (error) {
             console.error(error)
