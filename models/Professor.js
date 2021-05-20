@@ -40,10 +40,11 @@ class Professor {
         }
     }
 
-    async new(nameProfessor, MatriculaProfessor, password){
+    async new(nameProfessor, MatriculaProfessor, password, Curso_idCurso, Role_idRole){
         try {
             var hash = await bcrypt.hash(password, 12)
-            await knex.insert({nameProfessor, MatriculaProfessor, password: hash}).table("professor")
+            await knex.insert({nameProfessor, MatriculaProfessor, password: hash, Curso_idCurso, Role_idRole}).table("professor")
+
             return {status: true}
         } catch (error) {
             console.error(error)
