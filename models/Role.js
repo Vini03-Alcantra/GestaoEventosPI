@@ -34,10 +34,14 @@ class Role {
         }
     }
 
-    async new(nomeRole, descriptionRole, createdAt){
+    async new(nomeRole, descriptionRole, permissions){
         try {
-            await knex.insert({nomeRole, descriptionRole, createdAt}).table("role")
+            var role = await knex.insert({nomeRole, descriptionRole}).table("role")  
+            await permissions.forEach(element => {
+                this.rolePermissions(element, role)
+            });                           
             return {status: true}
+            
         } catch (error) {
             console.error(error)
             return {status: false}
@@ -88,6 +92,16 @@ class Role {
         }
     }
 
+
+    async rolePermissions(Permissions_idPermissions, Role_idRole){
+        try {
+            await knex.insert({Permissions_idPermissions, Role_idRole}).table("permissions_has_role")
+            return {status: true}
+        } catch (error) {
+            console.error(error)
+            return {status: false}
+        }
+    }
 }
 
 module.exports = new Role();
