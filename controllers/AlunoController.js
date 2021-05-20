@@ -19,10 +19,10 @@ class AlunoController {
     }
 
     async create(req, res){
-        var {NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password} = req.body;
+        var {NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password, Curso_idCurso} = req.body;
         var permissionMatricula = Aluno.findByMatricula(MatriculaAluno)             
         if (permissionMatricula) {
-            var aluno = await Aluno.new(NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password)
+            var aluno = await Aluno.new(NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password, Curso_idCurso)
             res.statusCode = 200;
             res.json(aluno)    
         } else {

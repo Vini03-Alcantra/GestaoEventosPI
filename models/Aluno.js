@@ -5,17 +5,17 @@ class Aluno {
     
     async findAll(){
         try {
-            var result = await knex.select(["idAluno", "NomeAluno", "emailAluno", "MatriculaAluno", "CpfAluno", "password", "Curso"]).from("aluno")
+            var result = await knex.select("*").from("aluno")
             return result;
         } catch (error) {
-            console.log(err)
+            console.log(error)
             return []
         }
     }
     
     async findByMatricula(matricula){
         try {
-            var result = await knex.select(["idAluno", "NomeAluno", "emailAluno", "MatriculaAluno", "CpfAluno", "password", "Curso"]).where({MatriculaAluno: matricula}).table("aluno")
+            var result = await knex.select("*").where({MatriculaAluno: matricula}).table("aluno")
             if(result.length > 0){
                 return true
             }else{
@@ -40,10 +40,10 @@ class Aluno {
         }
     }
     
-    async new(NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password){
+    async new(NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password, Curso_idCurso){
         try {
             var hash = await bcrypt.hash(password, 12)
-            await knex.insert({NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password: hash}).table("aluno")
+            await knex.insert({NomeAluno, emailAluno, MatriculaAluno, CpfAluno, password: hash, Curso_idCurso}).table("aluno")
             return {status: true}
         } catch (error) {
             console.log(error)
