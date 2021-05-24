@@ -20,7 +20,7 @@ class AdministradorController{
 
     async create(req, res){
         var {nomeAdministrador, MatriculaAdministrador, password, Role_idRole} = req.body;
-
+        
         var administrador = await Administrador.new(nomeAdministrador, MatriculaAdministrador, password, Role_idRole)
         res.statusCode = 200
         res.json(administrador)

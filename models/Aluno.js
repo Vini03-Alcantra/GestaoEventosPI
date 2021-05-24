@@ -47,7 +47,7 @@ class Aluno {
             return {status: true}
         } catch (error) {
             console.log(error)
-            return {status: true}
+            return {status: false}
         }
     }
 
