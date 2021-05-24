@@ -5,6 +5,7 @@ const permission = require("../controllers/PermissionController")
 const role = require("../controllers/RoleController")
 const professor = require("../controllers/ProfessorController")
 const aluno = require("../controllers/AlunoController")
+const administrador = require("../controllers/AdministradorController")
 
 router.post("/espaco", espaco.create)
 router.get("/espaco", espaco.index)
@@ -42,5 +43,10 @@ router.get("/aluno/:id", aluno.findLocal)
 router.put("/aluno", aluno.edit)
 router.delete("/aluno", aluno.remove)
 
+router.post("/administrador", administrador.create)
+router.get("/administrador", administrador.index)
+router.get("/administrador/:id", administrador.findLocal)
+router.put("/administrador", administrador.edit)
+router.delete("/administrador", administrador.remove)
 
 module.exports = router
