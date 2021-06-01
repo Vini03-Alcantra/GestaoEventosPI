@@ -16,13 +16,13 @@ class Evento {
         try {
             var result = await knex.select("*").where({idEvento: idEvento}).table("evento")
             if (result.length > 0) {
-                return true
+                return result[0]
             } else {
-                return false
+                return []
             }
         } catch (error) {
             console.error(error)
-            return []
+            return undefined
         }
     }
 

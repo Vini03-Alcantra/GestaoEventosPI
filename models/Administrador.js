@@ -26,9 +26,9 @@ class Administrador{
         }
     }
 
-    async findById(IdAministrador){
+    async findById(IdAdministrador){
         try {
-            var result = knex.select("*").where({IdAministrador: IdAministrador}).table("administrador")
+            var result = await knex.select("*").where({IdAdministrador: IdAdministrador}).table("administrador")
             if (result.length > 0) {
                 return result[0]
             } else {
