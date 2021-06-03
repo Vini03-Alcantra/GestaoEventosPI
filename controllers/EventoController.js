@@ -21,8 +21,8 @@ class EventoController {
     }
 
     async create(req, res){
-        var {EventoNome, EventoQuantidade, DataInicioEvento, DataFimEvento, CargaHorarioTotal, Espaco_idEspaco} = req.body;
-        var evento = await Evento.new(EventoNome, EventoQuantidade, DataInicioEvento, DataFimEvento, CargaHorarioTotal, Espaco_idEspaco)
+        var {EventoNome, EventoQuantidade, description, DataInicioEvento, DataFimEvento, CargaHorarioTotal, Espaco_idEspaco} = req.body;
+        var evento = await Evento.new(EventoNome, EventoQuantidade, description, DataInicioEvento, DataFimEvento, CargaHorarioTotal, Espaco_idEspaco)
         res.status(200)
         res.json(evento)
     }

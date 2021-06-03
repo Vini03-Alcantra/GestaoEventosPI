@@ -26,9 +26,9 @@ class Evento {
         }
     }
 
-    async new(EventoNome, EventoQuantidade, DataInicioEvento, DataFimEvento, CargaHorarioTotal, Espaco_idEspaco){
+    async new(EventoNome, EventoQuantidade, description, DataInicioEvento, DataFimEvento, CargaHorarioTotal, Espaco_idEspaco){
         try {
-            await knex.insert({EventoNome, EventoQuantidade, DataInicioEvento, DataFimEvento, CargaHorarioTotal, Espaco_idEspaco}).table("evento")
+            await knex.insert({EventoNome, EventoQuantidade, description,DataInicioEvento, DataFimEvento, CargaHorarioTotal, Espaco_idEspaco}).table("evento")
             return {status: true}
         } catch (error) {
             console.error(error)
