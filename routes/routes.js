@@ -54,7 +54,7 @@ router.post("/evento", evento.create)
 router.get("/evento", evento.index)
 router.get("/evento/:id", evento.findEvento)
 router.put("/evento", evento.edit)
-router.delete("/evento", evento.remove)
+router.delete("/evento/:id", evento.remove)
 
 
 module.exports = router
