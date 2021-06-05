@@ -7,6 +7,7 @@ const professor = require("../controllers/ProfessorController")
 const aluno = require("../controllers/AlunoController")
 const administrador = require("../controllers/AdministradorController")
 const evento = require("../controllers/EventoController")
+const faleConosco = require("../controllers/FaleConoscoController")
 
 router.post("/espaco", espaco.create)
 router.get("/espaco", espaco.index)
@@ -49,6 +50,11 @@ router.get("/administrador", administrador.index)
 router.get("/administrador/:id", administrador.findLocal)
 router.put("/administrador", administrador.edit)
 router.delete("/administrador", administrador.remove)
+
+router.post("/faleconosco", faleConosco.create)
+router.get("/faleconosco", faleConosco.index)
+router.get("/faleConosco/:id", faleConosco.findFaleConosco)
+
 
 router.post("/evento", evento.create)
 router.get("/evento", evento.index)
