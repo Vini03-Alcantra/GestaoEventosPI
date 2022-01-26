@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./server.js",
-    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.js"
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules ./src/server.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

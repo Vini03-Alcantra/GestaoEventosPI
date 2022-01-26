@@ -10,12 +10,16 @@ export class PostgresUsersRepository implements IAlunoRepository{
 
         return alunos
     }
-    findAluno(email: string, cpf: string, matricula: string): Promise<Aluno> {
-        throw new Error("Method not implemented.");
+
+    async findAluno(email: string, cpf: string, matricula: string): Promise<Aluno> {
+        const aluno = this.aluno.find((res) => res.CpfAluno === cpf)
+        return aluno
     }
-    create(data: CreateAlunoDTO): Promise<void> {
-        throw new Error("Method not implemented.");
+    
+    async create(data: CreateAlunoDTO): Promise<void> {
+        await this.aluno.push(data) 
     }
+
     update(): Promise<void> {
         throw new Error("Method not implemented.");
     }

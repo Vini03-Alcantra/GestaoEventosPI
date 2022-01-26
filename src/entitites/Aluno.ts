@@ -1,7 +1,7 @@
 import { uuid } from "uuidv4";
 
 export class Aluno {
-    public readonly id: string;
+    public readonly id?: string;
 
     public NomeAluno: string;
     public emailAluno: string;
